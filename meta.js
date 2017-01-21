@@ -24,6 +24,28 @@ module.exports = {
       "type": "string",
       "message": "Author"
     },
+	"test":{
+		type: "checkbox" , 
+		message: "this is a tes" , 
+		choices: [
+			{
+				name:"test1" , 
+				value: "test1"
+			} ,
+			{
+				name:"test2" , 
+				value: "test2"
+			} ,
+			{
+				name:"test3" , 
+				value: "test3"
+			} ,
+			{
+				name:"test4" , 
+				value: "test4"
+			}
+		]
+	},
     "build": {
       "type": "list",
       "message": "Vue build",
