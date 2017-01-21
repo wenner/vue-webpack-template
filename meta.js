@@ -26,11 +26,11 @@ module.exports = {
     },
 	"test":{
 		type: "checkbox" , 
-		message: "this is a tes" , 
+		message: "这是一个测试" , 
 		choices: [
 			{
-				name:"test1" , 
-				value: "test1"
+				name:"测试1" , 
+				value: "测试1"
 			} ,
 			{
 				name:"test2" , 
