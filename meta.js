@@ -26,11 +26,11 @@ module.exports = {
     },
 	"test":{
 		type: "checkbox" , 
-		message: "ÕâÊÇÒ»¸ö²âÊÔ" , 
+		message: "è¿™æ˜¯ä¸€ä¸ªæµ‹è¯•" , 
 		choices: [
 			{
-				name:"²âÊÔ1" , 
-				value: "²âÊÔ1"
+				name:"æµ‹è¯•1" , 
+				value: "æµ‹è¯•1"
 			} ,
 			{
 				name:"test2" , 
