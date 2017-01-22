@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 
 import * as CONSTANT from 'service/constant'
+import {APP_NAME} from 'service/config.js'
 import moduleManager from 'service/module/manager'
 
 Vue.use(VueRouter);
@@ -28,15 +29,15 @@ router.beforeEach((to, from, next) => {
 
   }
   //为每一个路径添加title标题 在定义router时,应添加test名称即为title标题
-  let titleStr = "交委";
+  let titleStr = [APP_NAME];
   if (to.name !== "home") { //主页显示默认title
     //遍历数组获取匹配到的路由节点,拼接各部分title
     for (let i = 0, l = to.matched.length; i < l; ++i) {
       let subTitle = to.matched[i].meta && to.matched[i].meta.text || "";
-      titleStr += subTitle === "" ? "" : "-"+subTitle
+      if (subTitle) titleStr.unshift(subTitle);
     }
   }
-  document.title = titleStr;
+  document.title = titleStr.join(" - ");
   next();
 });
 
