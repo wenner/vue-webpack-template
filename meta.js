@@ -14,6 +14,16 @@ module.exports = {
       "required": true,
       "message": "Project name"
     },
+    "title":{
+        "type": "string" ,
+        "required": true ,
+        "message": "App Name" ,
+        "default": "XXX管理系统"
+    } ,
+    "version":{
+        "type": "string" ,
+        "default": "0.0.1"
+    } ,
     "description": {
       "type": "string",
       "required": false,

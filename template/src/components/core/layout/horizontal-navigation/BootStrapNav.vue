@@ -9,7 +9,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a data-tooltips="首页" data-tooltips-pos="down" class="navbar-brand tooltips-warning"  href="#">交委平台 <span style='font-size:12px'>v0.1</span></a>
+        <a data-tooltips="首页" data-tooltips-pos="down" class="navbar-brand tooltips-warning"  href="#">{{appName}} <span style='font-size:12px'>v{{appVersion}}</span></a>
       </div>
 
       <!-- Collect the nav links, forms, and other content for toggling -->
@@ -117,10 +117,14 @@
 
 <script>
   import moduleManager from 'service/module/manager.js'
+  import {APP_NAME , APP_VERSION} from 'serice/config.js'
+
   export default {
     name: 'bootstrap-menu',
     data(){
       return {
+        appName: APP_NAME ,
+        appVersion: APP_VERSION ,
         menus: moduleManager.menus
       }
     },
