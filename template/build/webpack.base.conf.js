@@ -12,7 +12,7 @@ var useCssSourceMap = cssSourceMapDev || cssSourceMapProd
 
 module.exports = {
   entry: {
-    app: './src/main.js'
+    app: './src/app.js'
   },
   output: {
     path: config.build.assetsRoot,
@@ -28,7 +28,9 @@ module.exports = {
       {{/if_eq}}
       'src': path.resolve(__dirname, '../src'),
       'assets': path.resolve(__dirname, '../src/assets'),
-      'components': path.resolve(__dirname, '../src/components')
+      'components': path.resolve(__dirname, '../src/components') ,
+	  'pages': path.resolve(__dirname , '../src/pages') ,
+      'service': path.resolve(__dirname , '../src/service')
     }
   },
   resolveLoader: {
