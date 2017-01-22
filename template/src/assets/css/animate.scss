@@ -1,0 +1,14 @@
+.animate-enter {animation-duration: .3s}
+.animate-leave {animation-duration: .2s}
+
+//right-side-panel-transition
+.rsp-enter-active {
+  animation-name: slideInRight;
+  animation-duration: .3s;
+  animation-fill-mode: both;
+}
+.rsp-leave-active {
+  animation-name: slideOutRight;
+  animation-duration: .2s;
+  animation-fill-mode: both;
+}

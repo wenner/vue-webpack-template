@@ -1,0 +1,84 @@
+//Element-ui
+@import '../../../node_modules/element-ui/lib/theme-default/index.css';
+// Bootstrap
+$icon-font-path: '../../../node_modules/bootstrap-sass/assets/fonts/bootstrap/';
+//$link-color: #42b983;
+//$brand-success: #42b983;
+$brand-primary: #0273d4;
+$brand-success: #5cb85c;
+$brand-info:    #5bc0de;
+$brand-warning: #f0ad4e;
+$brand-danger:  #d9534f;
+@import '../../../node_modules/bootstrap-sass/assets/stylesheets/_bootstrap';
+// font awesome
+$fa-font-path: '../../../node_modules/font-awesome/fonts/';
+@import '../../../node_modules/font-awesome/scss/font-awesome';
+//animate.css
+@import '../../../node_modules/animate.css/animate.min.css';
+//flexbox css
+@import '../../../node_modules/flex-layout-attribute/css/flex-layout-attribute.css';
+
+//自定义的样式
+//Elemnet-ui的自定义样式
+@import 'element';
+//CSS3背景
+@import 'bg';
+//首页loding动画
+@import 'index-loading';
+//布局
+@import 'layout';
+//动画
+@import 'animate';
+
+//padding
+@for $i from 1 through 6 {
+  .padding-#{$i*5} { padding: 5px * $i; }
+}
+
+@for $i from 1 through 64 {
+  .text-#{$i} { font-size: 1px * $i; }
+}
+
+html {
+  height: 100%
+}
+
+body {
+  margin: 0;
+  font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+  height: 100%;
+}
+
+#app {
+  height: 100%
+}
+
+.btn-default, .btn-default.focus, .btn-default:focus {
+  color: #404040;
+  border-color: #dedede;
+  background-color: #fff;
+}
+.btn-default.hover, .btn-default:hover {
+  box-shadow: 0 1px 0 rgba(0,0,0,.1);
+  background-color: #fff;
+  border-color: #bdbdbd;
+}
+.btn-clear {
+  background-color:transparent;
+  border-color:transparent;
+}
+.btn:focus {outline:0 !important;}
+
+.has-scroll {overflow:auto}
+
+
+//utils
+.has-scroll {overflow:auto}
+ul.dropdown-menu li a {
+  cursor:pointer;
+  padding-top:5px;
+  padding-bottom:5px;
+}
+
+
+
