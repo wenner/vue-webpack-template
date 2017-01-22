@@ -3,7 +3,7 @@ import 'components/core/layout/store.js'
 
 import 'pages/login/module.js'
 import 'pages/home/module.js'
-import 'pages/baseinfo/service/module.js'
+import 'pages/configuration/service/module.js'
 
 // import 'pages/map/service/module.js'
 // import 'pages/check/service/module.js'
