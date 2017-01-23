@@ -24,9 +24,9 @@
                 <div class="link-inner">
                   <div>
                     <i :class="'icon '+menu.icon"></i>
-                    <span>{{menu.text}}</span>
+                    <span class="caret"></span>
+                    <div>{{menu.text}}</div>
                   </div>
-                  <span class="caret"></span>
                 </div>
               </a>
               <ul class="dropdown-menu">
@@ -76,9 +76,9 @@
               <div class="link-inner">
                 <div>
                   <i class="icon fa fa-user-circle"></i>
+                  <span class="caret"></span>
                   <span>{{$auth.user().truename}}</span>
                 </div>
-                <span class="caret"></span>
               </div>
             </a>
             <ul class="dropdown-menu">
@@ -117,7 +117,7 @@
 
 <script>
   import moduleManager from 'service/module/manager.js'
-  import {APP_NAME , APP_VERSION} from 'serice/config.js'
+  import {APP_NAME , APP_VERSION} from 'service/config.js'
 
   export default {
     name: 'bootstrap-menu',
@@ -184,7 +184,8 @@
       transition: border-width .15s ease , border-color .3s, background-color .3s, color .3s;
     }
     .navbar-nav > li > a .link-inner {
-      padding:10px 10px 10px 15px;
+      padding:10px;
+      min-width:60px;
       height:$nav-height;
       //height:100%;
       //width:100%;
@@ -192,8 +193,10 @@
       flex-direction: row;
       align-items:center;
       justify-content: center;
+      font-size:14px;
 
-      .icon {font-size:20px;display:block;margin-bottom:5px}
+      .icon {font-size:28px;display:block;margin-bottom:4px}
+      .caret {position:absolute;bottom:22px;bottom:1px;left:50%;transform:translateX(-50%);margin-left:0}
     }
 
 
