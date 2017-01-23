@@ -17,8 +17,8 @@ var otherRoutes = moduleManager.generateRoutes([
   {path: '*', redirect: '/404'}
 ]);
 routes = routes.concat(otherRoutes);
-const router = new VueRouter({
-  routes: routes
+const router = Vue.router = new VueRouter({
+	routes: routes
 });
 
 router.beforeEach((to, from, next) => {
