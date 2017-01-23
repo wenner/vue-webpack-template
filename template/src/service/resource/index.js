@@ -22,7 +22,7 @@ Vue.http.interceptors.push((request, next) => {
   next((response) => {
     var statusCode = response.status;
     var title = "错误 ["+statusCode+":"+response.statusText+"]";
-    var message = response.body.Message+"url:"+response.url;
+    var message = response.body ? response.body.Message : (response.data)+"url:"+response.url;
     switch (statusCode) {
       case 401:
         Notification({
