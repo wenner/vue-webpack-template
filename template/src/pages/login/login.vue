@@ -1,13 +1,10 @@
 <template>
-  <div>
-    <el-row>
-      <el-col :span="8" :offset="8">
-        <br><br>
-        <el-card class="box-card" v-loading="loading">
-          <div slot="header" class="clearfix">
-            <span style="line-height: 36px;">请登录</span>
+  <div layout="column center-center" style="height:100%;background-color:#fafafa">
+    <el-card class="box-card" v-loading="loading" style="width:30%;border-radius: 2px">
+          <div slot="header" class="text-center">
+            <h3>{{appName}}</h3>
           </div>
-          <el-form label-position="top" ref="loginForm" :rules="rules" :model="loginModel" @submit.present="login()">
+          <el-form label-position="left" ref="loginForm" :rules="rules" :model="loginModel" @submit.present="login()">
             <el-form-item label="用户名" prop="name">
               <el-input v-model="loginModel.name"></el-input>
             </el-form-item>
@@ -15,21 +12,21 @@
               <el-input type="password" v-model="loginModel.password"></el-input>
             </el-form-item>
             <el-form-item>
-              <el-button type="primary" @click.native="login()">登录</el-button>
+              <el-button type="primary" @click="login()" style="display:block">登录</el-button>
             </el-form-item>
-            {{error}}
+            <span v-if="error">{{error.message || error}}</span>
           </el-form>
         </el-card>
-      </el-col>
-    </el-row>
-
   </div>
 </template>
 
 <script type="text/ecmascript-6">
+import {APP_NAME} from 'service/config.js'
+
   export default {
     data(){
       return {
+       appName: APP_NAME , 
         loginModel: {
           name: "",
           password: ""
