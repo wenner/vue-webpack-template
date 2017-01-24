@@ -44,7 +44,7 @@
 
 <script type="text/ecmascript-6">
   import * as _ from 'lodash'
-  import {privilegeResource} from '../service/resource'
+  import {privilegeResource} from '../module/resource'
 
 
   export default {

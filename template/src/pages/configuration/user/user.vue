@@ -116,7 +116,7 @@
   import Vue from 'vue'
   import * as _ from 'lodash'
 
-  import {treeLoader, userResource} from '../service/resource.js'
+  import {treeLoader, userResource} from '../module/resource.js'
 
   import Form from './form.vue'
   import Role from './role.vue'

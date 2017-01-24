@@ -38,7 +38,7 @@
 
 <script type="text/ecmascript-6">
   import * as _ from 'lodash'
-  import {roleResource} from '../service/resource'
+  import {roleResource} from '../module/resource'
 
   export default {
     name: 'BaseInfoRoleForm',

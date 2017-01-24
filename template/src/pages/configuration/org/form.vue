@@ -48,7 +48,7 @@
 
 <script type="text/ecmascript-6">
   import * as _ from 'lodash'
-  import {orgResource} from '../service/resource'
+  import {orgResource} from '../module/resource'
 
 
   export default {

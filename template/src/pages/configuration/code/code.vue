@@ -77,7 +77,7 @@
 <script type="text/ecmascript-6">
   import Vue from 'vue'
   import * as _ from 'lodash'
-  import {codeCatalogResource, codeResource} from '../service/resource.js'
+  import {codeCatalogResource, codeResource} from '../module/resource.js'
   import Form from './form.vue'
 
   export default {

@@ -50,7 +50,7 @@
 </template>
 
 <script type="text/jsx">
-  import {treeLoader , privilegeResource} from '../service/resource.js'
+  import {treeLoader , privilegeResource} from '../module/resource.js'
   import * as _ from 'lodash'
 
   import FormPanel from './form.vue'

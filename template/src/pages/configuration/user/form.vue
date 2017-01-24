@@ -41,7 +41,7 @@
 
 <script type="text/ecmascript-6">
   import * as _ from 'lodash'
-  import {orgResource , treeLoader , userResource} from '../service/resource'
+  import {orgResource , treeLoader , userResource} from '../module/resource'
 
   export default {
     name: 'BaseInfoUserForm',

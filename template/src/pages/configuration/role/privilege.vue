@@ -50,7 +50,7 @@
 </template>
 
 <script type="text/jsx">
-  import {treeLoader, roleResource, privilegeResource} from '../service/resource.js'
+  import {treeLoader, roleResource, privilegeResource} from '../module/resource.js'
   import * as _ from 'lodash'
 
   export default {

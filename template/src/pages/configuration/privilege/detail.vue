@@ -76,7 +76,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import {privilegeResource} from '../service/resource'
+  import {privilegeResource} from '../module/resource'
 
   export default {
     name: 'BaseInfoPrivilegeDetail',
