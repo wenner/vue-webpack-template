@@ -8,7 +8,7 @@ import VuexRouterSync from 'vuex-router-sync'
 //resource base
 import 'service/resource'
 //import modules
-import 'service/module/modules'
+import 'service/modules.js'
 //vuex state manager
 import store from 'service/store'
 //router
@@ -19,7 +19,7 @@ import 'service/auth'
 import Element from 'element-ui'
 // import 'element-ui/lib/theme-default/index.css'
 //filter
-import filter from 'service/filter'
+import 'service/filter'
 
 
 //jquery , bootstrap
