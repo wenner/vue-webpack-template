@@ -9,7 +9,8 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a data-tooltips="首页" data-tooltips-pos="down" class="navbar-brand tooltips-warning"  href="#">{{appName}} <span style='font-size:12px'>v{{appVersion}}</span></a>
+        <a data-tooltips="首页" data-tooltips-pos="down" class="navbar-brand tooltips-warning" href="#">{{appName}} <span
+          style='font-size:12px'>v{{appVersion}}</span></a>
       </div>
 
       <!-- Collect the nav links, forms, and other content for toggling -->
@@ -33,7 +34,8 @@
                 <template v-for="child in menu.children">
                   <li v-if="child.isDivider" class="divider"></li>
                   <template v-else>
-                    <li v-if="child.children" class="dropdown-submenu" :class="{'router-link-active':$route.path.indexOf(child.rootPath)==0}">
+                    <li v-if="child.children" class="dropdown-submenu"
+                        :class="{'router-link-active':$route.path.indexOf(child.rootPath)==0}">
                       <a class="dropdown-toggle" data-toggle="dropdown">
                         <i :class="child.icon" v-if="child.icon"></i>
                         {{child.text}}
@@ -117,22 +119,31 @@
 
 <script>
   import moduleManager from 'service/module/manager.js'
-  import {APP_NAME , APP_VERSION} from 'service/config.js'
+  import {APP_NAME, APP_VERSION} from 'service/config.js'
+  import * as _ from 'lodash'
 
   export default {
     name: 'bootstrap-menu',
+    computed: {
+      menus(){
+        var ms = [];
+        _.each(_.sortBy(moduleManager.menus, ['index']), function (item) {
+          ms = ms.concat(item.menus)
+        });
+        return ms;
+      }
+    },
     data(){
       return {
-        appName: APP_NAME ,
-        appVersion: APP_VERSION ,
-        menus: moduleManager.menus
+        appName: APP_NAME,
+        appVersion: APP_VERSION
       }
     },
     methods: {
       allowShow(menu){
         return true;
         return this.$auth.check();
-      } ,
+      },
       logout() {
         this.$auth.logout({
           makeRequest: false,
@@ -152,62 +163,76 @@
 <style lang="scss" rel="stylesheet/scss">
   $nav-height: 68px;
   .page-header {
-    top:0;
+    top: 0;
     background-color: #0273d4; //o:0273d4 , hover:0262b4 , active:rgba(255, 255, 255, .2)
     border: 0;
     box-shadow: 0px 2px 3px rgba(0, 0, 0, .3);
     margin-bottom: 0px;
-    margin-top:0;
-    padding:0;
+    margin-top: 0;
+    padding: 0;
 
     .navbar-brand {
       line-height: $nav-height;
-      height:$nav-height;
-      padding-top:0;
-      padding-bottom:0;
+      height: $nav-height;
+      padding-top: 0;
+      padding-bottom: 0;
       font-size: 32px;
       color: #fff;
       margin-right: 80px;
       text-shadow: 1px 1px 0px #333;
     }
     .navbar-brand:hover {
-      color:#ffcc00
+      color: #ffcc00
     }
 
     .navbar-nav > li > a {
-      padding:0;
-      height:$nav-height;
-      text-align:center;
-      cursor:pointer;
+      padding: 0;
+      height: $nav-height;
+      text-align: center;
+      cursor: pointer;
       color: #fff;
-      border-bottom: 0 solid #0273d4;//transparent solid 3px;
-      transition: border-width .15s ease , border-color .3s, background-color .3s, color .3s;
+      border-bottom: 0 solid #0273d4; //transparent solid 3px;
+      transition: border-width .15s ease, border-color .3s, background-color .3s, color .3s;
     }
     .navbar-nav > li > a .link-inner {
-      padding:10px;
-      min-width:60px;
-      height:$nav-height;
+      padding: 10px;
+      min-width: 60px;
+      height: $nav-height;
       //height:100%;
       //width:100%;
-      display:flex;
+      display: flex;
       flex-direction: row;
-      align-items:center;
+      align-items: center;
       justify-content: center;
-      font-size:14px;
+      font-size: 14px;
 
-      .icon {font-size:28px;display:block;margin-bottom:4px}
-      .caret {position:absolute;bottom:22px;bottom:1px;left:50%;transform:translateX(-50%);margin-left:0}
+      .icon {
+        font-size: 28px;
+        display: block;
+        margin-bottom: 4px
+      }
+      .caret {
+        position: absolute;
+        bottom: 22px;
+        bottom: 1px;
+        left: 50%;
+        transform: translateX(-50%);
+        margin-left: 0
+      }
     }
 
-
-    .navbar-nav > li > a .caret {visibility: hidden}
+    .navbar-nav > li > a .caret {
+      visibility: hidden
+    }
     .navbar-nav > li > a:focus, .navbar-nav > li > a:hover {
       //background-color:#0262b4;
       //text-shadow: 1px 1px 0 #333;
       color: #ffcc00;
       border-bottom: #fff solid 3px
     }
-    .navbar-nav > li > a:hover .caret {visibility: visible}
+    .navbar-nav > li > a:hover .caret {
+      visibility: visible
+    }
     .navbar-nav > .router-link-active > a, .navbar-nav > .router-link-active > a:focus, .navbar-nav > .router-link-active > a:hover {
       border-bottom: #ffcc00 solid 3px;
       background-color: rgba(255, 255, 255, .2);
@@ -239,14 +264,14 @@
       //padding:0;border:0
     }
     .dropdown-menu > li > a {
-      padding:8px 15px;
+      padding: 8px 15px;
       //padding-top: 8px;
       //padding-bottom: 8px
 
-      i.fa , i.icon {
-        margin-right:10px;
-        width:16px;
-        height:16px;
+      i.fa, i.icon {
+        margin-right: 10px;
+        width: 16px;
+        height: 16px;
       }
     }
     .dropdown-menu > li.router-link-active, .dropdown-menu > li.router-link-active > a:hover {
@@ -282,7 +307,7 @@
       margin-right: -10px;
     }
     .dropdown-submenu.router-link-active > a:after {
-      border-left-color:#333
+      border-left-color: #333
     }
 
     .dropdown-submenu.pull-left {

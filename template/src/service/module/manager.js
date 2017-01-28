@@ -5,11 +5,20 @@ export default {
   menus:[] ,
   addMenu(menu , index){
     if (!_.isArray(menu)) menu = [menu];
+    var menus = [];
     for(var i = 0 ; i<menu.length ; i++){
-      this.menus.splice(index+i , 0 , menu[i]);
+      menus.push(menu[i]);
     }
-    //this.menus.splice(index , 0 , menu);
-    //this.menus.push(menu);
+    this.menus.push({
+      index: index ,
+      menus: menus
+    });
+    // for(var i = 0 ; i<menu.length ; i++){
+    //   this.menus.splice(index+i , 0 , menu[i]);
+    // }
+    // this.menus.splice(index , 0 , menu);
+    // this.menus.push(menu);
+    // console.log(this.menus)
   } ,
   generateMenus(menus){
     let iteratorPath = function(menus){
