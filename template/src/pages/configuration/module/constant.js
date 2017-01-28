@@ -1,5 +1,5 @@
 export const menus = [
-  {name:"baseinfo" , text:"配置" , path:"/configuration" , icon:"fa fa-info-circle" , auth:true , rootPath:"/baseinfo" ,
+  {name:"baseinfo" , text:"配置" , path:"/configuration" , icon:"fa fa-info-circle" , auth:true , rootPath:"/configuration" ,
     component: "configuration/configuration.vue" ,
     children:[
       {name:"configuration.org" , text:"机构管理" , path:"org" , icon:"fa fa-sitemap" , auth:true ,
