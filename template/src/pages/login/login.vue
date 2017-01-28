@@ -2,7 +2,7 @@
   <div layout="column center-center" style="height:100%;background-color:#fafafa">
     <el-card class="box-card" v-loading="loading" style="width:30%;border-radius: 2px">
           <div slot="header" class="text-center">
-            <h3>{{appName}}</h3>
+            <h3>{{appName}}用户登录</h3>
           </div>
           <el-form label-position="left" ref="loginForm" :rules="rules" :model="loginModel" @submit.present="login()">
             <el-form-item label="用户名" prop="name">
