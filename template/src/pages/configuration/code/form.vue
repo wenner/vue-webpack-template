@@ -50,7 +50,6 @@
     } ,
     data(){
       return {
-        orgComboData: null,
         saveProcessing: false ,
         formModel: {
           code_id:"0" ,
@@ -84,7 +83,7 @@
       } ,
       save(){
         this.saveProcessing = true;
-        codeResource.save(this.formModel)
+        codeResource.saveProperty({id:this.formModel.catalog_id} , this.formModel)
           .then(res => {
             this.$message({
               title: "保存成功",

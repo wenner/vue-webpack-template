@@ -4,7 +4,7 @@
       <div class="view-header-content" layout="row">
         <div>
           <span class="title">
-            <i class="fa fa-codepen"></i> 数据代码管理 <span style="font-size:16px;font-weight:normal">{{currentCatalog ? currentCatalog.name : ""}}</span>
+            <i class="fa fa-codepen"></i> 数据代码管理 <span style="font-size:20px;font-weight:normal;color:#666">{{currentCatalog ? currentCatalog.name : ""}}</span>
           </span>
         </div>
         <div class="text-right" self="size-x1">
@@ -24,7 +24,7 @@
         <div class="nav-body">
           <div v-for="catalog , ix in catalogs" class="catalog-item" :class="{'active': currentCatalog == catalog}"
                @click="onCatalogClick(catalog)">
-            {{ix+1}}. {{catalog.name}}
+            {{ix+1}}. {{catalog.name}}.{{catalog.id}}
           </div>
         </div>
       </div>
@@ -41,6 +41,7 @@
             class="flex extjs"
             border stripe>
             <el-table-column type="index" label="序号" align="center"></el-table-column>
+            <el-table-column prop="code_id" label="ID" align="center" width="60"></el-table-column>
             <el-table-column prop="code_name" label="名称" width="150" style="font-weight:bold"></el-table-column>
             <el-table-column prop="code_value" label="值" width="150"></el-table-column>
             <el-table-column prop="code_description" label="说明"></el-table-column>
@@ -77,7 +78,7 @@
 <script type="text/ecmascript-6">
   import Vue from 'vue'
   import * as _ from 'lodash'
-  import {codeCatalogResource, codeResource} from '../module/resource.js'
+  import {codeResource} from '../module/resource.js'
   import Form from './form.vue'
 
   export default {
@@ -114,7 +115,7 @@
     methods: {
       loadCatalog(){
         this.isCatalogLoading = true;
-        codeCatalogResource.query()
+        codeResource.query()
           .then(res=> {
             this.isCatalogLoading = false;
             this.catalogs = res.data;
@@ -135,7 +136,7 @@
         var id = parent.id;
         this.currentRecord = null;
         this.isLoading = true;
-        codeResource.query({catalog_id: id})
+        codeResource.property({id: id})
           .then(res => {
             this.isLoading = false;
             this.records = res.data;
@@ -177,7 +178,7 @@
         }
       },
       confirmDelete(record){
-        this.$confirm("要删除记录 " + record.code_name + " 么?", "删除确认", {
+        this.$confirm("要删除代码记录 " + record.code_name + " 么?", "删除确认", {
             confirmButtonText: '确定',
             cancelButtonText: '取消',
             type: 'error'
@@ -188,7 +189,7 @@
       },
       delete(record){
         Vue.set(record, "loading", "删除中");
-        codeResource.delete({id: record.code_id})
+        codeResource.deleteProperty({id: record.code_id})
           .then(res=> {
             _.remove(this.records, record);
             this.currentRecord = null;
@@ -204,7 +205,7 @@
 
 <style lang="scss" rel="stylesheet/scss" scoped>
   .catalog-item {
-    padding: 15px;
+    padding: 10px 15px;
     border-bottom: #eee solid 1px;
     cursor: pointer;
   }

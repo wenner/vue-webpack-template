@@ -12,11 +12,11 @@ export const roleResource = Vue.resource('role{/id}{/action}' , {} , {
   privilege: {params:{action:"privilege"}} ,
   savePrivilege: {method:"POST" , params:{action:"privilege"}}
 });
-//代码类别
-export const codeCatalogResource = Vue.resource('code/catalog');
-//代码值
-export const codeResource = Vue.resource('code{/id}' , {} , {
-
+//代码
+export const codeResource = Vue.resource('codemanager{/id}{/action}{/propertyId}' , {} , {
+  property: {method:"GET" , params:{action:"property"}} ,
+  saveProperty: {method:"POST" , params:{action:"property"}} ,
+  deleteProperty: {method:"DELETE" , params:{action:"property"}}
 });
 //权限
 export const privilegeResource = Vue.resource('privilege{/id}{/action}{/rangeId}' , {} , {
