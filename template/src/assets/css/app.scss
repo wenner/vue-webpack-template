@@ -1,17 +1,10 @@
+@import './variable.scss';
+
 //Element-ui
 @import '../../../node_modules/element-ui/lib/theme-default/index.css';
-// Bootstrap
-$icon-font-path: '../../../node_modules/bootstrap-sass/assets/fonts/bootstrap/';
-//$link-color: #42b983;
-//$brand-success: #42b983;
-$brand-primary: #0273d4;
-$brand-success: #5cb85c;
-$brand-info:    #5bc0de;
-$brand-warning: #f0ad4e;
-$brand-danger:  #d9534f;
+
 @import '../../../node_modules/bootstrap-sass/assets/stylesheets/_bootstrap';
 // font awesome
-$fa-font-path: '../../../node_modules/font-awesome/fonts/';
 @import '../../../node_modules/font-awesome/scss/font-awesome';
 //animate.css
 @import '../../../node_modules/animate.css/animate.min.css';

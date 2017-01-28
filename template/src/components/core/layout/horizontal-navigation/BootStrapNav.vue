@@ -161,10 +161,12 @@
 </script>
 
 <style lang="scss" rel="stylesheet/scss">
+  @import '../../../../assets/css/variable.scss';
+
   $nav-height: 68px;
   .page-header {
     top: 0;
-    background-color: #0273d4; //o:0273d4 , hover:0262b4 , active:rgba(255, 255, 255, .2)
+    background-color: $brand-primary; //o:0273d4 , hover:0262b4 , active:rgba(255, 255, 255, .2)
     border: 0;
     box-shadow: 0px 2px 3px rgba(0, 0, 0, .3);
     margin-bottom: 0px;
