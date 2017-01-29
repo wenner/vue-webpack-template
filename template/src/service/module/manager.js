@@ -91,8 +91,9 @@ export default {
     return menus;
   } ,
   getMenus(){
+    var allMenus = _.cloneDeep(this.menus);
     var rootMenus = [];
-    _.each(_.sortBy(this.menus, ['index']), function (item) {
+    _.each(_.sortBy(allMenus , ['index']), function (item) {
       if (item.group){
         var groupMenus = [];
         _.each(_.sortBy(item.menus[0].children , ['index']) , function(child){
