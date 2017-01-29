@@ -1,17 +1,16 @@
 <template>
   <div class="view-wrapper header-sidenav" layout="column">
     <div class="view-header">
-      <div class="view-header-content">
-        <div class="row">
-          <div class="col-md-8">
-          <span class="title">
-            <i class="fa fa-lock"></i> 权限管理
-          </span>
+      <div class="view-header-content" layout="row">
+          <div>
+            <span class="title">
+              <i class="fa fa-lock"></i> 权限管理
+            </span>
           </div>
-          <div class="col-md-4 tool text-right">
+          <div class="tool text-right" self="size-x1">
             <button type="button" class="btn btn-default inline-tool-item">导出</button>
           </div>
-        </div>
+
       </div>
     </div>
     <div class="view-body" layout="row">

@@ -1,14 +1,14 @@
 <template>
   <div class="view-wrapper header-sidenav" layout="column">
     <div class="view-header">
-      <div class="view-header-content">
-        <div class="row">
-          <div class="col-md-8">
-          <span class="title">
-            <i class="fa fa-sitemap"></i> 机构管理
-          </span>
-          </div>
-          <div class="col-md-4 tool text-right">
+      <div class="view-header-content" layout="row">
+        <div>
+            <span class="title">
+              <i class="fa fa-sitemap"></i> 机构管理
+            </span>
+        </div>
+        <div class="text-right" self="size-x1">
+          <div class="tool">
             <div class="inline-tool-item">
               <button type="button" class="btn btn-default" @click="addItem">
                 <i class="fa fa-plus"></i>
@@ -20,6 +20,7 @@
         </div>
       </div>
     </div>
+
     <div class="view-body" layout="row">
       <div class="view-content-wrapper">
         <div class="view-content">
@@ -54,7 +55,7 @@
 </template>
 
 <script type="text/jsx">
-  import {treeLoader , orgResource} from '../module/resource.js'
+  import {treeLoader, orgResource} from '../module/resource.js'
   import * as _ from 'lodash'
 
   import FormPanel from './form.vue'
@@ -146,46 +147,46 @@
           this.currentView = FormPanel;
           this.isShowSide = true;
         });
-      } ,
+      },
       /** 添加机构 */
       addItem(parent){
-        let parentNode = parent && parent.loc_id ? parent : {loc_id:0 , name:"所有机构"};
+        let parentNode = parent && parent.loc_id ? parent : {loc_id: 0, name: "所有机构"};
         this.componentRecord = {
           parentNode: parentNode
         };
         this.openForm();
-      } ,
+      },
       /** 编辑机构 */
       editItem(record){
         this.componentRecord = record;
         this.openForm();
-      } ,
+      },
       /** 保存成功后事件 */
-      afterSave(record , isEditing){
+      afterSave(record, isEditing){
         this.closeSidePanel();
         this.loadData();
         //TODO: 应该不要重新读取,而是操作树节点
-//        if (isEditing){
-//          let oldRecord = _.find(this.dataList , {loc_id: record.loc_id});
-//          _.extend(oldRecord , record);
-//        }else{
-//          var parentNode = _.find(this.dataList , {loc_id: record.parentid});
-//          if (!parentNode.children) parentNode.children = [];
-//          parentNode.children.push(record);
-//        }
-      } ,
+        //        if (isEditing){
+        //          let oldRecord = _.find(this.dataList , {loc_id: record.loc_id});
+        //          _.extend(oldRecord , record);
+        //        }else{
+        //          var parentNode = _.find(this.dataList , {loc_id: record.parentid});
+        //          if (!parentNode.children) parentNode.children = [];
+        //          parentNode.children.push(record);
+        //        }
+      },
       /** 删除成功后事件 */
       afterDelete(record){
         if (!record) return;
         this.closeSidePanel();
         this.loadData();
         //TODO: 应该不要重新读取,而是操作树节点
-//        return;
-//        let index = _.findIndex(this.dataList , {loc_id: record.loc_id});
-//        if (index>-1){
-//          this.dataList.splice(index , 1);
-//        }
-//        this.dataTree.splice(0,1)
+        //        return;
+        //        let index = _.findIndex(this.dataList , {loc_id: record.loc_id});
+        //        if (index>-1){
+        //          this.dataList.splice(index , 1);
+        //        }
+        //        this.dataTree.splice(0,1)
       }
     }
   }
