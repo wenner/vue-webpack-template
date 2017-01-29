@@ -13,23 +13,57 @@ export default {
       var menus = [];
       if (!currentGroup){
         var mg = menuGroup[menuGroupName.toUpperCase()];
-        if (!mg) return;
+        if (!mg) {
+          console.log("缺少group:"+menuGroupName);
+          return;
+        }
         currentGroup = {
           group: menuGroupName ,
           index: mg.index ,
           menus:[{
             text: mg.text,
             icon: mg.icon ,
-            auth: true,
+            //auth: true,
             children: []
           }]
         };
         this.menus.push(currentGroup);
       }
-      var children = currentGroup.menus[0].children;
+      var currentGroupMenu = currentGroup.menus[0];
+      var children = currentGroupMenu.children;
       //向分组的children中插入当前的内容
       for(var i = 0 ; i<menuArray.length ; i++){
-        menus.push(menuArray[i]);
+        var menuItem = menuArray[i];
+        if (!menuItem) return;
+        //TODO: 将auth内容加入到分组的auth中
+        //TODO: 当前判断太罗嗦
+        var auth = menuItem.auth;
+        if (auth){
+          if (_.isBoolean(auth)){
+            if (_.isArray(currentGroupMenu.auth)){
+              currentGroupMenu.auth = auth;
+            }else if (_.isString(currentGroupMenu.auth)){
+              currentGroupMenu.auth = [auth]
+            }else{
+              currentGroupMenu.auth = true;
+            }
+          }else if (_.isArray(auth)){
+            if (_.isArray(currentGroupMenu.auth)){
+              currentGroupMenu.auth = currentGroupMenu.auth.concat(auth);
+            }else if (_.isString(currentGroupMenu.auth)){
+              currentGroupMenu.auth.push(auth);
+            }
+          }else if (_.isString(auth)){
+            if (_.isArray(currentGroupMenu.auth)){
+              currentGroupMenu.auth = [currentGroupMenu.auth].concat(auth);
+            }else if (_.isString(currentGroupMenu.auth)){
+              currentGroupMenu.auth = [currentGroupMenu.auth].push(auth);
+            }
+          }else{
+            currentGroupMenu.auth = true;
+          }
+        }
+        menus.push(menuItem);
       }
       children.push({
         index: index ,
@@ -45,7 +79,6 @@ export default {
       }
       this.menus.push(result);
     }
-    console.log(this.menus)
   } ,
   generateMenus(menus){
     let iteratorPath = function(menus){
@@ -61,7 +94,6 @@ export default {
     var rootMenus = [];
     _.each(_.sortBy(this.menus, ['index']), function (item) {
       if (item.group){
-        console.log(item)
         var groupMenus = [];
         _.each(_.sortBy(item.menus[0].children , ['index']) , function(child){
           groupMenus = groupMenus.concat(child.menus);
