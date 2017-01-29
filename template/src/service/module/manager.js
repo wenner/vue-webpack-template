@@ -24,6 +24,7 @@ export default {
             text: mg.text,
             icon: mg.icon ,
             //auth: true,
+            rootPath: [] ,
             children: []
           }]
         };
@@ -62,6 +63,10 @@ export default {
           }else{
             currentGroupMenu.auth = true;
           }
+        }
+        //TODO: 将rootPath加进来
+        if (menuItem.rootPath){
+          currentGroupMenu.rootPath.push(menuItem.rootPath);
         }
         menus.push(menuItem);
       }

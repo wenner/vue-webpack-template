@@ -13,14 +13,12 @@
           style='font-size:12px'>v{{appVersion}}</span></a>
       </div>
 
-      <!-- Collect the nav links, forms, and other content for toggling -->
-      <!--TODO: 加上分组后,indexOf(rootPath)会有问题-->
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
           <template v-for="menu in menus" v-if="menu">
             <li v-if="menu.children"
                 v-show="allowShow(menu)"
-                :class="{'dropdown':true , 'router-link-active':$route.path.indexOf(menu.rootPath)==0}">
+                :class="{'dropdown':true , 'router-link-active':isActiveRootPath(menu.rootPath)}">
               <a class="dropdown-toggle" data-toggle="dropdown">
                 <div class="link-inner">
                   <div>
@@ -35,7 +33,7 @@
                   <li v-if="child.isDivider" class="divider"></li>
                   <template v-else>
                     <li v-if="child.children" class="dropdown-submenu"
-                        :class="{'router-link-active':$route.path.indexOf(child.rootPath)==0}">
+                        :class="{'router-link-active':isActiveRootPath(child.rootPath)}">
                       <a class="dropdown-toggle" data-toggle="dropdown">
                         <i :class="child.icon" v-if="child.icon"></i>
                         {{child.text}}
@@ -135,6 +133,14 @@
       }
     },
     methods: {
+      isActiveRootPath(rootPath){
+        var currentPath = this.$route.path;
+        rootPath = _.isArray(rootPath) ? rootPath : [rootPath];
+        return _.some(rootPath , function(p){
+          return currentPath.indexOf(p) == 0;
+        });
+        //$route.path.indexOf(menu.rootPath)==0)
+      } ,
       allowShow(menu){
         return true;
         return this.$auth.check();
@@ -175,7 +181,7 @@
       padding-bottom: 0;
       font-size: 32px;
       color: #fff;
-      margin-right: 80px;
+      margin-right: 20px;
       text-shadow: 1px 1px 0px #333;
     }
     .navbar-brand:hover {
