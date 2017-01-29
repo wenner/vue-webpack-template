@@ -1,24 +1,51 @@
 import * as _ from 'lodash'
+import menuGroup from 'service/constant/menuGroup'
 
 export default {
   //menus
   menus:[] ,
-  addMenu(menu , index){
-    if (!_.isArray(menu)) menu = [menu];
-    var menus = [];
-    for(var i = 0 ; i<menu.length ; i++){
-      menus.push(menu[i]);
+  addMenu(menuArray , index , menuGroupName){
+    if (!_.isArray(menuArray)) menuArray = [menuArray];
+    if (menuGroupName){
+      //从this.menus中获取是否有该菜单分组
+      var currentGroup = _.find(this.menus , {group:menuGroupName});
+      //如果没有分组,则创建一个分组插入到menus
+      var menus = [];
+      if (!currentGroup){
+        var mg = menuGroup[menuGroupName.toUpperCase()];
+        if (!mg) return;
+        currentGroup = {
+          group: menuGroupName ,
+          index: mg.index ,
+          menus:[{
+            text: mg.text,
+            icon: mg.icon ,
+            auth: true,
+            children: []
+          }]
+        };
+        this.menus.push(currentGroup);
+      }
+      var children = currentGroup.menus[0].children;
+      //向分组的children中插入当前的内容
+      for(var i = 0 ; i<menuArray.length ; i++){
+        menus.push(menuArray[i]);
+      }
+      children.push({
+        index: index ,
+        menus: menus
+      });
+    }else{
+      var result = {
+        index: index ,
+        menus:[]
+      };
+      for(var i = 0 ; i<menuArray.length ; i++){
+        result.menus.push(menuArray[i]);
+      }
+      this.menus.push(result);
     }
-    this.menus.push({
-      index: index ,
-      menus: menus
-    });
-    // for(var i = 0 ; i<menu.length ; i++){
-    //   this.menus.splice(index+i , 0 , menu[i]);
-    // }
-    // this.menus.splice(index , 0 , menu);
-    // this.menus.push(menu);
-    // console.log(this.menus)
+    console.log(this.menus)
   } ,
   generateMenus(menus){
     let iteratorPath = function(menus){
@@ -29,6 +56,21 @@ export default {
     };
     iteratorPath(menus);
     return menus;
+  } ,
+  getMenus(){
+    var rootMenus = [];
+    _.each(_.sortBy(this.menus, ['index']), function (item) {
+      if (item.group){
+        console.log(item)
+        var groupMenus = [];
+        _.each(_.sortBy(item.menus[0].children , ['index']) , function(child){
+          groupMenus = groupMenus.concat(child.menus);
+        });
+        item.menus[0].children = groupMenus;
+      }
+      rootMenus = rootMenus.concat(item.menus)
+    });
+    return rootMenus;
   } ,
   //routes
   routes:[] ,
