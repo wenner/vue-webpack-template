@@ -14,10 +14,10 @@
       </div>
 
       <!-- Collect the nav links, forms, and other content for toggling -->
+      <!--TODO: 加上分组后,indexOf(rootPath)会有问题-->
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
           <template v-for="menu in menus" v-if="menu">
-
             <li v-if="menu.children"
                 v-show="allowShow(menu)"
                 :class="{'dropdown':true , 'router-link-active':$route.path.indexOf(menu.rootPath)==0}">
@@ -26,12 +26,12 @@
                   <div>
                     <i :class="'icon '+menu.icon"></i>
                     <span class="caret"></span>
-                    <div>{{menu.text}}</div>
+                    <span class="text">{{menu.text}}</span>
                   </div>
                 </div>
               </a>
               <ul class="dropdown-menu">
-                <template v-for="child in menu.children">
+                <template v-for="child in menu.children" v-if="child">
                   <li v-if="child.isDivider" class="divider"></li>
                   <template v-else>
                     <li v-if="child.children" class="dropdown-submenu"
@@ -41,8 +41,8 @@
                         {{child.text}}
                       </a>
                       <ul class="dropdown-menu">
-                        <template v-for="subChild in child.children">
-                          <li v-if="subChild.isDivider" class="divider"></li>
+                        <template v-for="subChild in child.children" v-if="subChild">
+                          <li v-if="subChild && subChild.isDivider" class="divider"></li>
                           <router-link v-else tag="li" :to="subChild">
                             <a><i :class="subChild.icon" v-if="subChild.icon"></i>{{subChild.text}}</a>
                           </router-link>
@@ -63,7 +63,7 @@
                 <div class="link-inner">
                   <div>
                     <i :class="'icon '+menu.icon"></i>
-                    <span>{{menu.text}}</span>
+                    <span class="text">{{menu.text}}</span>
                   </div>
                 </div>
               </a>
@@ -79,34 +79,32 @@
                 <div>
                   <i class="icon fa fa-user-circle"></i>
                   <span class="caret"></span>
-                  <span>{{$auth.user().truename}}</span>
+                  <span class="text">{{$auth.user().truename}}</span>
                 </div>
               </div>
             </a>
             <ul class="dropdown-menu">
-              <router-link :to="'/person/info'" tag="li"><a>查看个人信息</a></router-link>
-              <router-link :to="'/person/password'" tag="li"><a>修改密码</a></router-link>
-              <router-link :to="'/person/message'" tag="li"><a>查看我的消息</a></router-link>
+              <router-link :to="'/person/info'" tag="li"><a><i class="fa fa-info-circle"></i>查看个人信息</a></router-link>
+              <router-link :to="'/person/password'" tag="li"><a><i class="fa fa-key"></i>修改密码</a></router-link>
+              <router-link :to="'/person/message'" tag="li"><a><i class="fa fa-comments"></i>查看我的消息</a></router-link>
               <li role="separator" class="divider"></li>
-              <li @click="logout()"><a>退出</a></li>
-            </ul>
-          </li>
-          <li :class="{'dropdown':true}">
-            <a data-toggle="dropdown">
-              <div class="link-inner">
-                <div>
+              <li class="dropdown-submenu right">
+                <a data-toggle="dropdown">
                   <i class="icon glyphicon glyphicon-cog"></i>
-                </div>
-              </div>
-            </a>
-            <ul class="dropdown-menu">
-              <li @click="setFullscreen()"><a>全屏</a></li>
+                  设置
+                </a>
+                <ul class="dropdown-menu">
+                  <li @click="setFullscreen()"><a><i class="fa fa-arrows-alt"></i>全屏</a></li>
+                  <li role="separator" class="divider"></li>
+                  <li @click="setLayout()"><a><i class="fa fa-columns"></i>布局</a></li>
+                  <li @click="setTheme()"><a><i class="fa fa-themeisle"></i>主题</a></li>
+                  <li role="separator" class="divider"></li>
+                  <li><a><i class="fa fa-question"></i>帮助</a></li>
+                  <li><a><i class="fa fa-info"></i>关于本系统</a></li>
+                </ul>
+              </li>
               <li role="separator" class="divider"></li>
-              <li @click="setLayout()"><a>布局</a></li>
-              <li @click="setTheme()"><a>主题</a></li>
-              <li role="separator" class="divider"></li>
-              <li><a>帮助</a></li>
-              <li><a>关于本系统</a></li>
+              <li @click="logout()"><a><i class="fa fa-sign-out"></i>退出</a></li>
             </ul>
           </li>
         </ul>
@@ -126,11 +124,12 @@
     name: 'bootstrap-menu',
     computed: {
       menus(){
-        return moduleManager.getMenus();
+          return moduleManager.getMenus();
       }
     },
     data(){
       return {
+        //menus: moduleManager.getMenus() ,
         appName: APP_NAME,
         appVersion: APP_VERSION
       }
@@ -202,7 +201,7 @@
       flex-direction: row;
       align-items: center;
       justify-content: center;
-      font-size: 14px;
+      font-size: 15px;
 
       .icon {
         font-size: 28px;
@@ -231,7 +230,9 @@
     .navbar-nav > li > a:hover .caret {
       visibility: visible
     }
-    .navbar-nav > .router-link-active > a, .navbar-nav > .router-link-active > a:focus, .navbar-nav > .router-link-active > a:hover {
+    .navbar-nav > .router-link-active > a,
+    .navbar-nav > .router-link-active > a:focus,
+    .navbar-nav > .router-link-active > a:hover {
       border-bottom: $nav-hover-color solid 3px;
       background-color: rgba(255, 255, 255, .2);
       color: #fff
@@ -245,7 +246,10 @@
     }
     .navbar-nav > .open > a, .navbar-nav > .open > a:focus, .navbar-nav > .open > a:hover {
       background-color: #fff;
-      border-bottom: #fff solid 3px
+      border-bottom: #fff solid 3px;
+      .caret {
+        visibility: visible
+      }
     }
     .navbar-nav > li {
       font-size: 16px;
@@ -288,6 +292,10 @@
       -moz-border-radius: 0 6px 6px;
       border-radius: 0 6px 6px 6px;
     }
+    .dropdown-submenu.right > .dropdown-menu {
+      right: 100%;
+      left:-100%;
+    }
     .dropdown-submenu:hover > .dropdown-menu {
       display: block;
     }
@@ -319,6 +327,17 @@
       border-radius: 6px 0 6px 6px;
     }
 
+  }
+
+  @media(max-width: $nav-only-icon-width) {
+    .page-header{
+      .navbar-nav > li > a .link-inner {
+        min-width:inherit;
+        .text {
+          display:none;
+        }
+      }
+    }
   }
 
 </style>
