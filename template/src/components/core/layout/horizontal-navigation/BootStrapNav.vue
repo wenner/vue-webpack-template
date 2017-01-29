@@ -126,11 +126,7 @@
     name: 'bootstrap-menu',
     computed: {
       menus(){
-        var ms = [];
-        _.each(_.sortBy(moduleManager.menus, ['index']), function (item) {
-          ms = ms.concat(item.menus)
-        });
-        return ms;
+        return moduleManager.getMenus();
       }
     },
     data(){
