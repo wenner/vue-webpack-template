@@ -126,7 +126,7 @@ export default {
         ? (_.isFunction(component)
           ? component
           : resolve => require(["pages/"+component], resolve)
-      ) : null;
+      ) : resolve => require(['pages/empty.vue'] , resolve);
     };
 
     let generateRouteItem = function(item){
