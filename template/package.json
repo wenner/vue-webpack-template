@@ -17,7 +17,7 @@
     "animate.css": "^3.5.2",
     "bootstrap-sass": "^3.3.7",
     "echarts": "^3.2.3",
-    "element-ui": "1.1.2",
+    "element-ui": "^1.1.6",
     "flex-layout-attribute": "^1.0.3",
     "font-awesome": "^4.6.3",
     "jquery": "^3.1.1",
