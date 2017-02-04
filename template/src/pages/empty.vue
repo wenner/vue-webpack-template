@@ -1,6 +1,6 @@
 <template>
   <div class="view-wrapper header-sidenav" layout="column">
-    <div class="view-header has-shadow">
+    <div class="view-header has-shadow" v-if="$route.name.split('.').length < 3">
       <div class="view-header-content" layout="row">
         <div>
           <span class="title">
@@ -14,7 +14,8 @@
         <div class="view-content padding-30 text-center">
           <h1 style="font-size:60px;color:red">Coming Soon...</h1>
           <div style="color:#ccc;margin-top:60px">
-            <span>path: <b>{{$route.path}}</b></span>
+            <span style='display:inline-block;'>path: <b>{{$route.path}}</b></span>
+            <span style='display:inline-block;margin-left:20px'>title: <b>{{title}}</b></span>
             <span style='display:inline-block;margin-left:20px' v-for="item,key in meta">
               {{key}}: <b>{{item}}</b>
             </span>
@@ -46,9 +47,6 @@
     data(){
       return {
       }
-    },
-    mounted(){
-      console.log(this.$route)
     }
   }
 </script>
