@@ -20,26 +20,29 @@ Vue.http.options.root = config.API_ROOT;
 Vue.http.interceptors.push((request, next) => {
   request.headers = request.headers || {};
   next((response) => {
+    if (response.ok) return;
     var statusCode = response.status;
     var title = "错误 ["+statusCode+":"+response.statusText+"]";
     var message = response.body ? response.body.Message : (response.data)+"url:"+response.url;
+    var cls = "" , type="error";
     switch (statusCode) {
+      case 0:
+        title = "错误";
+        message = "未找到对应请求的URL("+response.url+"),可能是没有该Action!"
+        break;
       case 401:
-        Notification({
-          customClass: "http-error-notify" ,
-          title: title ,
-          message: message ,
-          type:"error"
-        });
+        cls = "http-error-notify";
         break;
       case 403:
-        Notification({
-          title: title ,
-          message: message ,
-          type:"error"
-        });
+        break;
+      default:
         break;
     }
+    Notification({
+      title: title ,
+      message: message ,
+      type:"error"
+    });
   })
 });
 
