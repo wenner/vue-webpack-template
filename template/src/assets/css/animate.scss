@@ -12,3 +12,14 @@
   animation-duration: .2s;
   animation-fill-mode: both;
 }
+
+.fade-enter-active {
+  animation-name: fadeIn;
+  animation-duration: .3s;
+  animation-fill-mode: both;
+}
+.fade-leave-active {
+  animation-name: fadeOut;
+  animation-duration: .2s;
+  animation-fill-mode: both;
+}
