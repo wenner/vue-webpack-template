@@ -24,7 +24,7 @@
 @import 'animate';
 
 //padding
-@for $i from 1 through 6 {
+@for $i from 1 through 10 {
   .padding-#{$i*5} { padding: 5px * $i; }
 }
 
