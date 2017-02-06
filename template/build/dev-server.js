@@ -12,6 +12,8 @@ var webpackConfig = {{#if_or unit e2e}}process.env.NODE_ENV === 'testing'
 
 // default port where dev server listens for incoming traffic
 var port = process.env.PORT || config.dev.port
+//use portfinder
+var portfinder = require('portfinder');
 // Define HTTP proxies to your custom API backend
 // https://github.com/chimurai/http-proxy-middleware
 var proxyTable = config.dev.proxyTable
@@ -58,20 +60,29 @@ app.use(hotMiddleware)
 var staticPath = path.posix.join(config.dev.assetsPublicPath, config.dev.assetsSubDirectory)
 app.use(staticPath, express.static('./static'))
 
-var uri = 'http://localhost:' + port
-
-devMiddleware.waitUntilValid(function () {
-  console.log('> Listening at ' + uri + '\n')
-})
-
-module.exports = app.listen(port, function (err) {
-  if (err) {
-    console.log(err)
-    return
-  }
-
-  // when env is testing, don't need open it
-  if (process.env.NODE_ENV !== 'testing') {
-    opn(uri)
-  }
-})
+module.exports = (function(){
+  //将basePort = port;
+  portfinder.basePort = port;
+  //将hosts加上 " :: "
+  portfinder._defaultHosts.push("::");
+  //查找一个未占用的端口
+  portfinder.getPort({host:'127.0.0.1'} , function (err, port) {
+    if (err){
+      return;
+    }
+    var uri = 'http://localhost:' + port;
+    devMiddleware.waitUntilValid(function () {
+      console.log('> Listening at ' + uri + '\n')
+    })
+    app.listen(port, function (err) {
+      if (err) {
+        console.log(err)
+        return
+      }
+      // when env is testing, don't need open it
+      if (process.env.NODE_ENV !== 'testing') {
+        opn(uri)
+      }
+    });
+  });
+})();
