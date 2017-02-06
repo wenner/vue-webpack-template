@@ -1,9 +1,13 @@
 import * as _ from 'lodash'
 import menuGroup from 'service/constant/menuGroup'
 
+/***
+ * 解析menus数据 , 其中 isNotMenu 表示只是路由不是菜单 , isNotRouter 表示只是菜单不是路由
+ */
 export default {
   //menus
   menus:[] ,
+  //添加菜单
   addMenu(menuArray , index , menuGroupName){
     if (!_.isArray(menuArray)) menuArray = [menuArray];
     if (menuGroupName){
@@ -35,6 +39,7 @@ export default {
       //向分组的children中插入当前的内容
       for(var i = 0 ; i<menuArray.length ; i++){
         var menuItem = menuArray[i];
+        if (menuItem.isNotMenu) continue; //如果该记录不是菜单,则忽略
         if (!menuItem) return;
         //TODO: 将auth内容加入到分组的auth中
         //TODO: 当前判断太罗嗦
@@ -80,11 +85,14 @@ export default {
         menus:[]
       };
       for(var i = 0 ; i<menuArray.length ; i++){
+        var menuItem = menuArray[i];
+        if (menuItem.isNotMenu) continue; //如果该记录不是菜单,则忽略
         result.menus.push(menuArray[i]);
       }
       this.menus.push(result);
     }
   } ,
+  //根据传入的数据生成菜单格式数据
   generateMenus(menus){
     let iteratorPath = function(menus){
       _.each(menus , (item)=>{
@@ -95,6 +103,7 @@ export default {
     iteratorPath(menus);
     return menus;
   } ,
+  //获取菜单
   getMenus(){
     var allMenus = _.cloneDeep(this.menus);
     var rootMenus = [];
@@ -110,17 +119,21 @@ export default {
     });
     return rootMenus;
   } ,
+
   //routes
   routes:[] ,
   /**
-   * 想路由列表中加入一条路由
+   * 向路由列表中加入一条路由
    * @param route 路由记录
    * */
   addRoute(route){
     this.routes = this.routes.concat(route);
   } ,
+  //通过传入数据生成路由记录数据
   generateRoutes(data){
     data = !_.isArray(data) ? [data] : data;
+
+    //获取路由对应的组件
     let resolveComponent = function(component){
       return component
         ? (_.isFunction(component)
@@ -129,7 +142,8 @@ export default {
       ) : resolve => require(['pages/empty.vue'] , resolve);
     };
 
-    let generateRouteItem = function(item){
+    //生成一个路由记录
+    let generateRouteItem = function(item , parent){
       if (!item.path && !item.name) return false;
       let components = item.components
         ? _.reduce(item.components, function(result, value, key) {
@@ -145,25 +159,40 @@ export default {
       route.component = resolveComponent(item.component);
       route.components = components;
       route.meta = _.assign({} , item , item.meta);
+
+      //如果有parent,则重写Path
+      if (parent){
+        if (route.path.indexOf("/") != 0){
+          route.path = [parent.path , route.path].join("/");
+        }
+      }
       //route.meta.auth = false;
       return route;
     };
 
-    let itertorRouters = function(data , result){
+    //递归获取路由
+    let iteratorRouters = function(data , result , parent){
       data.map((item)=>{
-        var r = generateRouteItem(item);
+        var r = generateRouteItem(item , parent);
         if (r) {
-          result.push(r);
+          if (!item.isNotRouter) result.push(r); //如果不是路由,则不加入到路由中
           if (item.children){
-            r.children = itertorRouters(item.children , []);
+            if (item.isNotRouter){  //如果不是路由,则子节点直接加入到当前的路由中,而不加入到children中
+              iteratorRouters(item.children , result , r);
+            }else{
+              r.children = iteratorRouters(item.children , []);
+            }
           }
         }
       });
       return result;
     };
-    var routes = itertorRouters(data , []);
+
+    var routes = iteratorRouters(data , []);
     return routes;
   },
+
+
   //store
   modules: {} ,
   getters: {} ,
