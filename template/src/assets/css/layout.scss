@@ -1,21 +1,25 @@
 @import './variable.scss';
 
 $start-z-index: 40;
+$header-height: 36px;
 .view-wrapper{
   height:100%;;
   position:relative;
+  overflow:hidden;
 }
-//.view-wrapper.header-sidenav{
-//  .view-header {z-index:$start-z-index+1};
-//  .view-body {z-index:$start-z-index};
-//  .view-side-nav {z-index:$start-z-index};
-//}
-//
-//.view-wrapper.sidenav-header{
-//  .view-header {z-index:$start-z-index};
-//  .view-body {z-index:$start-z-index};
-//  .view-side-nav {z-index:$start-z-index+1};
-//}
+.view-wrapper.header-sidenav{
+  .view-header {z-index:$start-z-index+1};
+  //.view-body {z-index:$start-z-index};
+  .view-side-nav {z-index:$start-z-index};
+  .side-panel {z-index:$start-z-index+2}
+}
+
+.view-wrapper.sidenav-header{
+  //.view-header {z-index:$start-z-index};
+  //.view-body {z-index:$start-z-index};
+  .view-side-nav {z-index:$start-z-index};
+  .side-panel {z-index:$start-z-index+1}
+}
 
 .view-header{
   position:relative;
@@ -25,13 +29,14 @@ $start-z-index: 40;
   //z-index:60;
   //background-color:#f7f7f7;
 
-  .view-header-content {margin-top:15px;}
+  .view-header-content {margin-top:10px;min-height:$header-height}
   .view-header-content:first-child {margin-top:0}
 
   .title {
     color:$brand-primary ; //#0273d4;
     font-size:24px;
     font-weight:500;
+    line-height:$header-height;
     i.fa , span.fa {
       margin-right:6px;
     }
@@ -60,6 +65,7 @@ $start-z-index: 40;
   position:relative;
   flex: 1 0 0 !important;
   height:100%;
+  overflow:hidden;
 
   .view-body-inner {
     flex: 1 0 0 !important;
@@ -73,6 +79,7 @@ $start-z-index: 40;
   }
   .view-content{
     height:100%;
+    overflow:hidden;
   }
 
   .view-content-inner {
@@ -125,8 +132,8 @@ $start-z-index: 40;
       padding:10px 15px;
     }
     li.router-link-active a {
-      color: #4285f4;
-      .fa {color:#4285f4;}
+      color: $brand-primary;
+      .fa {color:$brand-primary;}
     }
     .nav li .label {
       float: right;
@@ -224,21 +231,8 @@ $start-z-index: 40;
       text-decoration:none;
       cursor:pointer
     }
-
-    .tool {
-      font-size:0;
-      .inline-tool-item {
-        margin-left:5px;
-        display: inline-block;
-        vertical-align: middle;
-      }
-      .inline-tool-item:first-child {margin-left:0}
-      .el-button+.el-button {
-        margin-left:5px;
-      }
-    }
-
   }
+
   .body {
     flex:1;
     overflow:hidden;
@@ -260,3 +254,15 @@ $start-z-index: 40;
   .footer.buttons .btn:first-child {margin-right:0}
 }
 
+.tool {
+  font-size:0;
+  .inline-tool-item {
+    margin-left:5px;
+    display: inline-block;
+    vertical-align: middle;
+  }
+  .inline-tool-item:first-child {margin-left:0}
+  .el-button+.el-button {
+    margin-left:5px;
+  }
+}
