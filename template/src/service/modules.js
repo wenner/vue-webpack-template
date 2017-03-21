@@ -1,9 +1,9 @@
 import 'components/core/layout/store.js'
 //各个模块
 
-import 'pages/login/module.js'
-import 'pages/home/module.js'
-import 'pages/configuration/module/index.js'
+import 'pages/login/_module.js'
+import 'pages/home/_module.js'
+import 'pages/configuration/_module/index.js'
 
 // import 'pages/map/service/module.js'
 // import 'pages/check/service/module.js'
