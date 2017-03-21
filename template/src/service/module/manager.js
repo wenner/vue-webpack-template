@@ -41,6 +41,7 @@ export default {
         var menuItem = menuArray[i];
         if (menuItem.isNotMenu) continue; //如果该记录不是菜单,则忽略
         if (!menuItem) return;
+        if (!menuItem.component) menuItem.disabled = true;
         //TODO: 将auth内容加入到分组的auth中
         //TODO: 当前判断太罗嗦
         var auth = menuItem.auth;
@@ -87,7 +88,8 @@ export default {
       for(var i = 0 ; i<menuArray.length ; i++){
         var menuItem = menuArray[i];
         if (menuItem.isNotMenu) continue; //如果该记录不是菜单,则忽略
-        result.menus.push(menuArray[i]);
+        if (!menuItem.component) menuItem.disabled = true;
+        result.menus.push(menuItem);
       }
       this.menus.push(result);
     }
