@@ -55,7 +55,7 @@
 </template>
 
 <script type="text/jsx">
-  import {treeLoader, orgResource} from '../module/resource.js'
+  import {treeLoader, orgResource} from '../_module/resource.js'
   import * as _ from 'lodash'
 
   import FormPanel from './form.vue'

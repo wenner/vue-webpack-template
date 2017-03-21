@@ -38,7 +38,7 @@
 
 <script type="text/ecmascript-6">
   import * as _ from 'lodash'
-  import {codeResource} from '../module/resource'
+  import {codeResource} from '../_module/resource'
 
   export default {
     name: 'BaseInfoCodeForm',

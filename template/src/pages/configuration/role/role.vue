@@ -94,7 +94,7 @@
   import Vue from 'vue'
   import * as _ from 'lodash'
 
-  import {roleResource , treeLoader} from '../module/resource.js'
+  import {roleResource , treeLoader} from '../_module/resource.js'
 
   import Form from './form.vue'
   import Privilege from './privilege.vue'

@@ -47,7 +47,7 @@
 <script type="text/ecmascript-6">
   import Vue from 'vue'
   import * as _ from 'lodash'
-  import {codeCatalogResource, codeResource} from '../module/resource.js'
+  import {codeCatalogResource, codeResource} from '../_module/resource.js'
 
   export default {
     name: 'BaseInfoCode',

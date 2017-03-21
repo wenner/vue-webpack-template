@@ -72,7 +72,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import {orgResource} from '../module/resource'
+  import {orgResource} from '../_module/resource'
 
   export default {
     name: 'BaseInfoOrganizationDetail',
